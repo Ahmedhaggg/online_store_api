@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 start app.js --name app --watch",
-    "start:prod": "pm2 start app.js --name app --watch"
+    "start": "pm2 start --name 'app' app.js",
+    "start:prod": "pm2 start --name 'app' app.js"
   },
   "keywords": [],
   "author": "",
