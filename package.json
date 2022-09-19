@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 start app.js --name app --watch",
-    "start:prod": "pm2 start app.js --name app --watch"
+    "start": "node app.js",
+    "start:prod": "node app.js"
   },
   "keywords": [],
   "author": "",
@@ -19,10 +19,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.3",
     "multer": "^1.4.5-lts.1",
-    "pm2": "^3.2.2",
     "socket.io": "^4.5.1"
-  },
-  "engines": {
-    "node": "16.x"
   }
 }
