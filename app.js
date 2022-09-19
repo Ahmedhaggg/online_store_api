@@ -7,7 +7,20 @@ const app = express();
 const guard = require("./sockets/guards");
 const { corsOptions } = require("./config/corsOptions")
 // cors
-app.use(cors(corsOptions))
+var whitelist = [CLIENT]
+
+app.use(cors(
+    {
+        origin: function (origin, callback) {
+            if (whitelist.indexOf(origin) !== -1) {
+                callback(null, true)
+            } else {
+                callback(new Error('Not allowed by CORS'))
+            }
+        },
+        credentials: true
+    }
+))
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
@@ -18,8 +31,14 @@ require("./db/config");
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: [CLIENT],
-        methods: ["GET", "POST"]
+        origin: function (origin, callback) {
+            if (whitelist.indexOf(origin) !== -1) {
+                callback(null, true)
+            } else {
+                callback(new Error('Not allowed by CORS'))
+            }
+        },
+        credentials: true
     }
 });
 
@@ -57,6 +76,9 @@ app.use("/api/notifications", userNotificationRoutes);
 app.use("/api/orders", userOrderRoutes);
 
 require("./config/index")
+
+app.use((req, res, next) => res.status(404).json({ success: false }))
+app.use((error, req, res, next) => res.status(404).json({ success: error.message || "something went wrong" }))
 
 
 httpServer.listen(PORT || 3000, () => console.log("server is running"));

@@ -1,16 +1,26 @@
 const { CLIENT } = require("./index");
 
-let allowlist = [CLIENT];
+let allowlist = [];
 
 let corsOptionsDelegate = function (req, callback) {
-
-    let corsOptions;
     if (allowlist.indexOf(req.header('Origin')) !== -1) {
-        corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+        callback(null, { origin: true })
     } else {
-        corsOptions = { origin: false } // disable CORS for this request
+        console.log("false")
+        callback(null, { origin: new Error({ success: false, message: "page not found" }) })
     }
-    callback(null, corsOptions) // callback expects two parameters: error and options
 }
 
+// const corsOptions = {
+//     origin: function (origin, callback) {
+//         if (blacklisted.indexOf(origin) !== -1) {
+//             callback(new Error({
+//                 success: false,
+//                 message: "page not found"
+//             }))
+//         } else {
+//             callback(null, true)
+//         }
+//     },
+// }
 exports.corsOptions = corsOptionsDelegate;
