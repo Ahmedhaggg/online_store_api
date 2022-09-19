@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 restart app",
-    "start:prod": "pm2 restart app"
+    "start": "pm2 start app.js --name app --watch",
+    "start:prod": "pm2 start app.js --name app --watch"
   },
   "keywords": [],
   "author": "",
