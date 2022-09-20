@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 start --name 'app' app.js",
-    "start:prod": "pm2 start --name 'app' app.js"
+    "start": "pm2 start --no-daemon app.js",
+    "start:prod": "pm2 start --no-daemon app.js"
   },
   "keywords": [],
   "author": "",
