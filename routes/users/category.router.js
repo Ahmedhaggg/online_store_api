@@ -4,7 +4,7 @@ let catchErrors = require("../../middlewares/catchErrorMd")
 
 router.get("/", catchErrors(categoryController.index));
 
-router.get("/:id", catchErrors(categoryController.show));
+router.get("/:title", catchErrors(categoryController.show));
 
 
 module.exports = router;

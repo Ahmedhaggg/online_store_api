@@ -23,7 +23,7 @@ exports.login = async (req, res, next) => {
     let user = await userService.get(email);
 
     if (!user)
-        res.stats(404).json({
+        res.status(404).json({
             success: false,
             errorName: "loginError",
             message: "email is not used"
@@ -32,7 +32,7 @@ exports.login = async (req, res, next) => {
     let checkPassword = await compare(password, user.password);
 
     if (checkPassword === false)
-        res.stats(404).json({
+        res.status(404).json({
             success: false,
             errorName: "loginError",
             message: "correct password"

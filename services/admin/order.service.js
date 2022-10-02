@@ -14,3 +14,5 @@ exports.getOne = async (orderId) => await Order.findOne({ _id: orderId }).popula
     path: "user",
     select: "userName email"
 });
+
+exports.count = async (status) => await Order.count({ status })

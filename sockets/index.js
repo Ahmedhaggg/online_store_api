@@ -11,7 +11,6 @@ module.exports = (io, socket) => {
     });
 
     socket.on("adminConnect", () => {
-        console.log("newAdminConnect")
         onlineAdmin();
         socket.join("admin")
     });

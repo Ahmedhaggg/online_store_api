@@ -12,3 +12,5 @@ exports.getOne = async (query) => await Category.findOne(query);
 exports.getAll = async (query) => await Category.find(query);
 exports.addNewProduct = async (categoryId, newProductId) => await Category
     .updateOne({ _id: categoryId }, { $push: { products: newProductId } });
+
+exports.count = async () => await Category.count();

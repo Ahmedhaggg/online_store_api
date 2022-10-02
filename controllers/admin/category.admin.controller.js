@@ -1,5 +1,5 @@
 let categoryService = require("../../services/admin/category.admin.service");
-
+let productService = require("../../services/admin/product.admin.service")
 exports.store = async (req, res, next) => {
     let { title } = req.body;
 
@@ -22,11 +22,10 @@ exports.index = async (req, res, next) => {
 }
 
 exports.show = async (req, res, next) => {
-
     let category = await categoryService.getOne({ _id: req.params.id });
 
-    let products = await productService.getAllByCategory({ categoryId: req.params.id });
-
+    let products = await productService.getCategoryProducts(req.params.id);
+    console.log(products)
     if (!category)
         return res.status(404).json({
             success: false,

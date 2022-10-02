@@ -16,3 +16,6 @@ exports.getAll = async () => await Product.find().populate("category");
 
 exports.getAllByCategory = async (query) => await Product.find(query).populate("category");
 
+exports.getCategoryProducts = async categoryId => await Product.find({ category: categoryId })
+
+exports.count = async () => await Product.count();

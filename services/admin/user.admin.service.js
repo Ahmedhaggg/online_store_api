@@ -15,4 +15,6 @@ exports.getUser = async (userId) => {
         email,
         orders
     }
-}
+};
+
+exports.count = async () => await User.count();

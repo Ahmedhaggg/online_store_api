@@ -13,8 +13,8 @@ exports.index = async (req, res, next) => {
 
 exports.destroy = async (req, res, next) => {
     let { userId } = req.user;
-    let d = await notificationService.deleteUserNotifications(userId);
-    console.log(d)
+    await notificationService.deleteUserNotifications(userId);
+
     res.status(200).json({
         success: true,
         message: "all user notifications is deleted"

@@ -9,18 +9,17 @@ const { corsOptions } = require("./config/corsOptions")
 // cors
 var whitelist = [CLIENT]
 
-app.use(cors(
-    {
-        origin: function (origin, callback) {
-            if (whitelist.indexOf(origin) !== -1) {
-                callback(null, true)
-            } else {
-                callback(new Error('Not allowed by CORS'))
-            }
-        },
-        credentials: true
-    }
-))
+app.use(cors({
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
+    credentials: true
+}))
+
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
@@ -55,12 +54,14 @@ let categoryAdminRoutes = require("./routes/admin/category.admin.router");
 let productAdminRoutes = require("./routes/admin/product.admin.router");
 let orderAdminRoutes = require("./routes/admin/order.admin.router");
 let userAdminRoutes = require("./routes/admin/users.admin.router");
-
+let staticsAdminRoutes = require("./routes/admin/statics.admin.router")
 app.use("/api/admin/auth", authAdminRoutes);
 app.use("/api/admin/categories", categoryAdminRoutes);
 app.use("/api/admin/products", productAdminRoutes);
 app.use("/api/admin/orders", orderAdminRoutes);
 app.use("/api/admin/users", userAdminRoutes);
+app.use("/api/admin/statics", staticsAdminRoutes);
+
 
 // user routes
 let authUserRoutes = require("./routes/users/auth.router");
@@ -78,7 +79,9 @@ app.use("/api/orders", userOrderRoutes);
 require("./config/index")
 
 app.use((req, res, next) => res.status(404).json({ success: false }))
-app.use((error, req, res, next) => res.status(404).json({ success: error.message || "something went wrong" }))
 
+app.use((error, req, res, next) => {
+    res.status(404).json({ message: error.message || "something went wrong" })
+})
 
 httpServer.listen(PORT || 3000, () => console.log("server is running"));
