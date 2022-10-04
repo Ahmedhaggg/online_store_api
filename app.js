@@ -81,7 +81,7 @@ require("./config/index")
 app.use((req, res, next) => res.status(404).json({ success: false }))
 
 app.use((error, req, res, next) => {
-    res.status(404).json({ message: error.message || "something went wrong" })
+    res.status(404).json({ message: error.message || "something went wrong", success: false });
 })
 
 httpServer.listen(PORT || 3000, () => console.log("server is running"));
