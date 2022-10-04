@@ -8,18 +8,18 @@ const guard = require("./sockets/guards");
 const { corsOptions } = require("./config/corsOptions")
 // cors
 var whitelist = [CLIENT]
-
-app.use(cors({
-    origin: function (origin, callback) {
-        console.log(origin)
-        if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed by CORS'))
-        }
-    },
-    credentials: true
-}))
+app.use(cors())
+// app.use(cors({
+//     origin: function (origin, callback) {
+//         console.log(origin)
+//         if (whitelist.indexOf(origin) !== -1) {
+//             callback(null, true)
+//         } else {
+//             callback(new Error('Not allowed by CORS'))
+//         }
+//     },
+//     credentials: true
+// }))
 
 
 app.use(express.urlencoded({ extended: false }))
@@ -29,18 +29,19 @@ app.use("/uploads", express.static(UPLOADSDEST))
 require("./db/config");
 
 const httpServer = createServer(app);
-const io = new Server(httpServer, {
-    cors: {
-        origin: function (origin, callback) {
-            if (whitelist.indexOf(origin) !== -1) {
-                callback(null, true)
-            } else {
-                callback(new Error('Not allowed by CORS'))
-            }
-        },
-        credentials: true
-    }
-});
+const io = new Server(httpServer)
+// const io = new Server(httpServer, {
+//     cors: {
+//         origin: function (origin, callback) {
+//             if (whitelist.indexOf(origin) !== -1) {
+//                 callback(null, true)
+//             } else {
+//                 callback(new Error('Not allowed by CORS'))
+//             }
+//         },
+//         credentials: true
+//     }
+// });
 
 io.use(guard);
 
