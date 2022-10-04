@@ -29,7 +29,7 @@ app.use("/uploads", express.static(UPLOADSDEST))
 require("./db/config");
 
 const httpServer = createServer(app);
-const io = new Server(httpServer)
+const io = new Server(httpServer, { cors: { origin: "*" }})
 // const io = new Server(httpServer, {
 //     cors: {
 //         origin: function (origin, callback) {
